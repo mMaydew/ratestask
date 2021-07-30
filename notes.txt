@@ -8,3 +8,8 @@ Regex pattern: "[a-zA-Z0-9_-]+" alphanumeric with underscores and dashes. This a
 
 Before regex I should filter the parameters so we only use the ones that are specified in the task.
 I think dictionary comprehension is the best option here.
+
+Since the data will end up in JSON format I can use postgres to present me the data in JSON which will cut processing time and will only return 1 row of data
+if I set up the query in a smart way.
+
+If I search with ports.code, ports.parent_slug, and regions.parent_slug I don't have to check what kind of format the location given is in.
