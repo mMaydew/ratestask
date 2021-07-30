@@ -57,7 +57,7 @@ def rates():
     args["date_to"],
     origin_codes[0][0],
     destination_codes[0][0]
-  )
+  )[0][0]
 
   if not output_data:
     return jsonify([])
