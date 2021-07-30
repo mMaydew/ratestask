@@ -2,3 +2,9 @@ Start date and time - 2021-07-30 20:49
 
 Using flask as the framework with psycopg2 for db queries. Will end up using os.environ for db password and IP.
 I'm going to host both the db and api in docker containers. I will need to make a docker-compose file but for now I will focus on the api.
+
+I need to sanitise the parameters that are passed, basic regex should do the trick based on the data that I've seen.
+Regex pattern: "[a-zA-Z0-9_-]+" alphanumeric with underscores and dashes. This allows for date, code, and slug.
+
+Before regex I should filter the parameters so we only use the ones that are specified in the task.
+I think dictionary comprehension is the best option here.
