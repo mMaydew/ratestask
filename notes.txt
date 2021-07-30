@@ -35,3 +35,5 @@ Current time - 22:22
 I'm going to play around with the docker-compose file, I think I can sort that in around 30 minutes. Then I'm going to bed.
 
 I will write tests tomorrow and make alterations to the API if it fails the tests.
+
+Time for sleep. Stop time - 22:50
