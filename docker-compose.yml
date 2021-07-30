@@ -1,0 +1,21 @@
+services:
+  api:
+    build: .
+    ports:
+      - 80:80
+    environment:
+      - FLASK_ENV=production
+      - POSTGRES_PASSWORD=ratestask
+      - DATABASE_IP=db
+      - FLASK_APP=app.py
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12
+    volumes:
+      - ./rates.sql:/docker-entrypoint-initdb.d/rates.sql
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_PASSWORD=ratestask
