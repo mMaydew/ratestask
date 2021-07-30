@@ -22,3 +22,16 @@ If a location doesn't exist I should return a 400 error with a message saying th
 But if there is no data for an existing location I should just return an empty array. (Getting ahead of myself slightly, but it's noted for later)
 
 I think there might be a cleaner way to implement the location code check, I will think about it later.
+
+Just checked GitHub, turns out I accidentally used my alt account for the first commit :facepalm:
+
+Time update - It's 22:03. I'm going to bed in about an hour, I think I can get most of it done by then. Might have to finish up some small stuff in the morning.
+
+Added the average_price function, using some postgres "magic" the database handles averaging and stuff. This is faster than if I was to handle all of that in the API itself.
+Added a check to see if there is data returned from said function, if there isn't it returns an empty array.
+
+Current time - 22:22
+
+I'm going to play around with the docker-compose file, I think I can sort that in around 30 minutes. Then I'm going to bed.
+
+I will write tests tomorrow and make alterations to the API if it fails the tests.

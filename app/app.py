@@ -52,16 +52,25 @@ def rates():
       "origin": args["origin"]
     }, 400
 
-  # Data to pass to the average price function:
-  # args["date_from"], args["date_to"], origin_codes[0][0], destination_codes[0][0]
+  output_data = average_price(
+    args["date_from"],
+    args["date_to"],
+    origin_codes[0][0],
+    destination_codes[0][0]
+  )
 
-  return jsonify(raw_args)
+  if not output_data:
+    return jsonify([])
+
+  return jsonify(output_data)
 
 
 def get_codes(location):
   '''
   Take location as an argument and return all the codes linked to it.\n
-  Return an empty array if no codes exist for the given location.
+  Return an empty array if no codes exist for the given location.\n
+  Args:\n
+    \tlocation - The location parameter from the API
   '''
   codes = query_db(
     """
@@ -79,6 +88,49 @@ def get_codes(location):
   )
 
   return codes
+
+
+def average_price(date_from, date_to, origin, destination):
+  '''
+  Take the sanitised params and codes to query for average prices.\n
+  Args:\n
+    \tdate_from\n
+    \tdate_to\n
+    \torigin\n
+    \tdestination
+  '''
+  price_data = query_db(
+    """
+    SELECT JSON_AGG(TO_JSON(json_data))
+    FROM (
+      SELECT prices.day,
+      CASE
+        WHEN COUNT(prices.price) >= 3 THEN ROUND(AVG(prices.price), 0)
+        WHEN COUNT(prices.price) < 3 THEN null
+      END AS average_price
+      FROM public.prices
+      WHERE prices.orig_code in ({0})
+        AND prices.dest_code in ({1})
+        AND prices.day >= '{2}'
+        AND prices.day <= '{3}'
+      GROUP BY prices.day
+      ORDER BY prices.day
+    ) AS json_data;
+    """.format(
+      ", ".join(
+        "'" + code + "'"
+        for code in origin
+      ),
+      ", ".join(
+        "'" + code + "'"
+        for code in destination
+      ),
+      date_from,
+      date_to
+    )
+  )
+
+  return price_data
 
 
 def query_db(query_string):
