@@ -13,3 +13,12 @@ Since the data will end up in JSON format I can use postgres to present me the d
 if I set up the query in a smart way.
 
 If I search with ports.code, ports.parent_slug, and regions.parent_slug I don't have to check what kind of format the location given is in.
+
+
+I will update the README at the end as there is a good amount to change there.
+
+
+If a location doesn't exist I should return a 400 error with a message saying the location doesn't exist.
+But if there is no data for an existing location I should just return an empty array. (Getting ahead of myself slightly, but it's noted for later)
+
+I think there might be a cleaner way to implement the location code check, I will think about it later.

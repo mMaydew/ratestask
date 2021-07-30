@@ -37,7 +37,48 @@ def rates():
     check_arg = regex_pattern.match(args[key]).group()
     args[key] = check_arg
 
+  destination_codes = get_codes(args["destination"])
+  origin_codes = get_codes(args["origin"])
+
+  # If there is no dest/orig codes return a 400 error
+  if not destination_codes:
+    return {
+      "error": "Destination location does not exist",
+      "destination": args["destination"]
+    }, 400
+  if not origin_codes:
+    return {
+      "error": "Origin location does not exist",
+      "origin": args["origin"]
+    }, 400
+
+  # Data to pass to the average price function:
+  # args["date_from"], args["date_to"], origin_codes[0][0], destination_codes[0][0]
+
   return jsonify(raw_args)
+
+
+def get_codes(location):
+  '''
+  Take location as an argument and return all the codes linked to it.\n
+  Return an empty array if no codes exist for the given location.
+  '''
+  codes = query_db(
+    """
+    SELECT JSON_AGG(TO_JSON(json_data)->'code')
+    FROM (
+      SELECT ports.code
+      FROM public.ports
+      RIGHT JOIN public.regions
+        ON regions.slug = ports.parent_slug
+      WHERE regions.parent_slug = '{0}'
+        OR ports.parent_slug = '{0}'
+        OR ports.code = '{0}'
+    ) AS json_data;
+    """.format(location)
+  )
+
+  return codes
 
 
 def query_db(query_string):
