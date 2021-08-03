@@ -24,11 +24,12 @@ def rates():
   }
   raw_args = None
 
-  for param in required_params:
-    if param not in args:
-      return {
-        "error": "{0} parameter was not given.".format(param)
-      }, 400
+  if len(args) != 4:
+    for param in required_params:
+      if param not in args:
+        return {
+          "error": "{0} parameter was not given.".format(param)
+        }, 400
 
   # regex to sanitise parameters
   regex_pattern = compile("[a-zA-Z0-9_-]+")
