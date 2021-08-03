@@ -37,3 +37,15 @@ I'm going to play around with the docker-compose file, I think I can sort that i
 I will write tests tomorrow and make alterations to the API if it fails the tests.
 
 Time for sleep. Stop time - 22:50
+
+Current date and time - 2021-08-03 05:47
+
+Woke up early, sadly I didn't have time to work on this during the weekend.
+
+Time to write some tests.
+
+I shall start with errors and error codes.
+
+Need to activate hypervisor again and restart PC.
+
+Seems we're not checking to see if we have the required params properly, time to implement a check
