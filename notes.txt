@@ -48,4 +48,10 @@ I shall start with errors and error codes.
 
 Need to activate hypervisor again and restart PC.
 
-Seems we're not checking to see if we have the required params properly, time to implement a check
+Seems we're not checking to see if we have the required params properly, time to implement a check.
+
+Added a test for missing parameter data.
+
+Time to go though, I will write some more tests later and let Xeneta know I'm done.
+
+Current time - 07:12
