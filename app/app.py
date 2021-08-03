@@ -10,18 +10,25 @@ app.config["JSON_SORT_KEYS"] = False
 @app.route('/rates', methods=['GET'])
 def rates():
   raw_args = request.args.to_dict()
-  # Remove unwanted parameters
-  args = {
-    key: raw_args[key]
-    for key in raw_args
-    if key in [
+  required_params = [
       "date_from",
       "date_to",
       "origin",
       "destination"
     ]
+  # Remove unwanted parameters
+  args = {
+    key: raw_args[key]
+    for key in raw_args
+    if key in required_params
   }
   raw_args = None
+
+  for param in required_params:
+    if param not in args:
+      return {
+        "error": "{0} parameter was not given.".format(param)
+      }, 400
 
   # regex to sanitise parameters
   regex_pattern = compile("[a-zA-Z0-9_-]+")
@@ -29,7 +36,7 @@ def rates():
     # Check that parameter actually has data
     if not args[key].strip():
       return {
-        "error": "{0} parameter was not given.".format(key)
+        "error": "No data given for parameter {0}.".format(key)
       }, 400
 
     # Check the parameter and put the santised version
