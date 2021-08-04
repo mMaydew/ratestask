@@ -43,28 +43,33 @@ def rates():
     # Check the parameter and put the santised version
     # in the args dictionary
     check_arg = regex_pattern.match(args[key]).group()
+    if len(check_arg) == 5:
+      check_arg = check_arg.upper()
+    else:
+      check_arg = check_arg.lower()
+
     args[key] = check_arg
 
-  destination_codes = get_codes(args["destination"])
-  origin_codes = get_codes(args["origin"])
+  destination_codes = get_codes(args["destination"])[0][0]
+  origin_codes = get_codes(args["origin"])[0][0]
 
   # If there is no dest/orig codes return a 400 error
   if not destination_codes:
     return {
-      "error": "Destination location does not exist",
+      "error": "destination does not exist",
       "destination": args["destination"]
     }, 400
   if not origin_codes:
     return {
-      "error": "Origin location does not exist",
+      "error": "origin does not exist",
       "origin": args["origin"]
     }, 400
 
   output_data = average_price(
     args["date_from"],
     args["date_to"],
-    origin_codes[0][0],
-    destination_codes[0][0]
+    origin_codes,
+    destination_codes
   )[0][0]
 
   if not output_data:

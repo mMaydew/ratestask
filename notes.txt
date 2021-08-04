@@ -59,3 +59,23 @@ Current time - 07:12
 Current time - 22:06
 
 Going to optimise the no param check.
+
+I took a nap, not sure when I stopped. going to guess around 22:30?
+It's now 04:47.
+
+I need to test locations, going to do that quickly. I think 8 location checks will be fine:
+  uppercase code,
+  lowercase code,
+  uppercase slug,
+  lowercase slug,
+  uppercase region,
+  lowercase region,
+  wrong_origin,
+  wrong_destination
+
+Thinking about this I should check the location length, and if it's 5 characters long make it uppercase. If it's more than 5 characters make it lowecase.
+Okay, location tests are done. Modified the API as some of the tests failed.
+Current time is 05:25
+
+I think I'm done, going to check some stuff. I would write data tests but it would basically be re-writing the functions from the API.
+I might automate some requests though to make it easier for the devs to check outputs.

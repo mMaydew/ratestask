@@ -40,3 +40,7 @@ py -m pytest --verbose
 pip3 install -U pytest
 pytest --verbose
 ```
+
+
+# Total time usage
+* 3 hours 52 minutes (roughly)
