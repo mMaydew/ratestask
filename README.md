@@ -43,10 +43,10 @@ pytest --verbose
 
 
 # Links to try
-### Returns prices and null
+### Returns prices and null:
 * http://127.0.0.1/rates?date_from=2016-01-10&date_to=2017-01-11&origin=CNSGH&destination=IEDUB  
 
-### Returns just prices
+### Returns just prices:
 * http://127.0.0.1/rates?date_from=2016-01-01&date_to=2016-01-10&origin=china_main&destination=north_europe_main
 
 ### Edge cases:
